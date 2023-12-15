@@ -1,0 +1,11 @@
+npm i react-google-charts
+
+npm i @headlessui/react
+
+npm i react-datepicker
+
+ npm i react-router-dom 
+
+ npm install particles.js
+
+ npm install reactstrap react react-dom
