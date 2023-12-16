@@ -1,7 +1,3 @@
-
-
-
-
   
   .image-to-slide-and-bounce {
     animation: slideInAndBounce 3s infinite ease-in-out 0s; /* Include the animation-delay in the animation property */
@@ -44,8 +40,19 @@
     }
   }
 
+  .borderr{
+    border: 2px solid black;
+    padding: 2rem;
+    border-radius: 10px;
+  }
 
 
 
 
 
+
+  .center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

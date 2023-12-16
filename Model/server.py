@@ -6,47 +6,59 @@ import time
 import pymongo
 import os
 from colorama import Fore
+from signal import signal, SIGTERM
+
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS Policy for all routes
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173/dashboard"}})    . If you want to enable CORS for specific routes
 
-def is_test_py_running():
-    for process in psutil.process_iter(['pid', 'name']):
-        # print(process.info['name'])
-        if process.info['name'] == 'python' and 'Emotion_Analyzer.py' in process.info['cmdline']:
-            return True
-    return False
+is_running = False
+curr_process = None
 
-# def is_python_process_running(file_name):
-#     try:
-#         process_info = subprocess.check_output(["tasklist"], text=True)
-#         return any("python.exe" in line and file_name in line for line in process_info.split('\n'))
-#     except subprocess.CalledProcessError:
-#         return False
-    
+# def is_test_py_running():
+#     for process in psutil.process_iter(['pid', 'name']):
+#         # print(process.info['name'])
+#         if process.info['name'] == 'python' and 'Emotion_Analyzer.py' in process.info['cmdline']:
+#             return True
+#     return False
+
 @app.route('/main', methods = ['POST'])
 
 def main():
+
+    global curr_process, is_running
     
     data = request.get_json()
     print(data)
     with open('username.txt', 'w') as file:
         file.write(data['username'] + data['date'] + data['subject'])
 
-    if not is_test_py_running():
-        print("model not running going to start")
-        subprocess.run(['python', 'Emotion_Analyzer.py'])
+    if not is_running:
+        print('Starting the session')
+        curr_process = subprocess.run(['python', 'Emotion_Analyzer.py'])
+        is_running = True
     else:
         print('Session is already started.')
     return jsonify({'message': 'Request processed successfully'})
-    # file_name = 'Emotion_Analyzer.py'
 
-    # if is_python_process_running(file_name):
-    #     print(f"A Python process for '{file_name}' is already running.")
-    # else:
-    #     print(f"No Python process for '{file_name}' is currently running.")
-    # return jsonify({'message': 'Request processed successfully'})
+@app.route('/stop', methods = ['POST'])
+def stop():
+
+    global curr_process, is_running
+
+    if is_running:
+        print('Stopping the session')
+        curr_process.terminate()
+
+        # Send a SIGTERM signal to the subprocess
+        os.kill(curr_process.pid, SIGTERM)
+        curr_process.wait()  # Wait for the process to finish
+        is_running = False
+
+    return jsonify({'message': 'Request processed successfully'})
+    
+
 
 @app.route('/end', methods = ['POST'])
 def end():

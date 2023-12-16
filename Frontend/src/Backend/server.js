@@ -11,8 +11,8 @@ dotenv.config()
 
 const app = express()
 const port = 3000
-console.log(process.env.MONGODB_URI);
-mongoose.connect(process.env.MONGODB_URI)
+
+mongoose.connect(process.env.MONGODB_URI + 'EA')
 
 const TeacherSchema = new mongoose.Schema({
     username: {
@@ -41,21 +41,23 @@ app.post('/register', async (req, res) => {
     if(searchResult.length > 0) {
         res.json( { ok : false, message: 'User Already Exists'})
     }
+    else {
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+            if(err) {
+                res.json({ ok: false, message: 'Something went wrong. Please try again' })
+            } else {
+                const newTeacher = new Teacher({
+                  password: hash,
+                  name: name,
+                  username: username 
+                })
+    
+                newTeacher.save()
+                res.json({ ok: true, message: 'Successfully registered' })
+            }
+        })
+    }
 
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-        if(err) {
-            res.json({ ok: false, message: 'Something went wrong. Please try again' })
-        } else {
-            const newTeacher = new Teacher({
-              password: hash,
-              name: name,
-              username: username 
-            })
-
-            newTeacher.save()
-            res.json({ ok: true, message: 'Successfully registered' })
-        }
-    })
 
 })
 

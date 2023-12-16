@@ -3,14 +3,13 @@ import { Chart } from "react-google-charts";
 
 export const data = [
     ["Task", "Hours per Day"],
-    ["Happy", 11],
-    ["Sad", 2],
-    ["Angry", 2],
-    ["Neutral", 2],
+    ["Dis-Engaged", 7],
+    ["Engaged", 12],
+    ["Highly-Engaged", 5]
   ];
   
   export const options = {
-    title: "Student's Data",
+    title: "Student's Engagement Analysis",
   };
 
 const StudentInfo = () => {

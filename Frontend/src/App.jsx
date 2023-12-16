@@ -11,23 +11,17 @@ import Mydatepickersecond from "./component/Mydatepickersecond.jsx";
 import TeacherDashboard from "./component/TeacherDashboard.jsx";
 import StudentsPortal from "./component/StudentsPortal.jsx";
 import StudentInfo from "./component/StudentInfo.jsx";
+import End from "./component/End.jsx";
 import "./App.css";
 import Header from "./component/Header.jsx";
 import  Footer  from "./component/Footer.jsx";
 import Gap from "./component/Gap.jsx";
 
-// import { useLocation } from 'react-router-dom';
-// import MyDatePicker from './MyDatePicker';
-
 
 function App() {
-  // Inside the component handling the /Session route
-// const location = useLocation();
-// const { setUsername } = location.state || {};
-
   const [alert, setAlert] = useState(null);
   const [username, setUsername] = useState('');
-  // console.log(props.setUsername())
+
 
   const showalert = (message, type) => {
     setAlert({
@@ -53,12 +47,13 @@ function App() {
           <Route path="session" element={<MyDatePicker showalert={showalert}  setUsername={setUsername} username={username} />} />
           <Route path="TeacherSession" element={<Mydatepickersecond showalert={showalert} />} />
           <Route path="TeacherDashboard" element={<TeacherDashboard />} />
+          <Route path="end" element={<End />} />
           <Route path="sportal" element={<StudentsPortal />} />
           <Route path="data" element={<StudentInfo />} />
         </Routes>
       </div>
       <Gap x={14}/>
-      <Footer/>    
+      {/* <Footer/>     */}
     </BrowserRouter>
   );
 }

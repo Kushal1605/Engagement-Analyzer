@@ -6,15 +6,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   padding: 40px;
-  height: 100vh;
+  height: 120vh;
 }
 
 /* Header Content */
 .header-content {
   text-align: center;
   margin-bottom: 40px;
+  text-transform: uppercase;
 }
 
 /* Logo Container */
@@ -27,7 +28,8 @@
 /* Main Logo */
 .logo-main {
   height: 150px;
-  margin-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
   animation: rotateSlow 8s linear infinite;
 }
 
@@ -37,13 +39,14 @@
   /* No animation for sub logo */
 }
 
+
 /* Main Text */
 .main-text {
-  margin-top: 20px;
   color: #333;
   font-size: 18px;
   line-height: 1.5;
   animation: fadeIn 1s ease-in-out;
+  width: 60%;
 }
 
 /* Sub Text */
@@ -88,13 +91,13 @@
 
 /* Sign-In Button */
 .sign-in {
-  background-color: #818cf8;
+  background-color: rgb(57, 89, 233);
   width: 9rem;
 }
 
 /* Sign-Up Button */
 .sign-up {
-  background-color: #818cf8;
+  background-color: rgb(57, 89, 233);
   width: 9rem;
 
 }
@@ -113,4 +116,10 @@
 @keyframes rotateSlow {
   0% { transform: rotate(0); }
   100% { transform: rotate(360deg); }
+}
+
+
+.action-image{
+  height: 15rem;
+
 }

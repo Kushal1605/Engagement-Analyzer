@@ -13,9 +13,18 @@ from dotenv import load_dotenv
 import io
 from PIL import Image
 import matplotlib.pyplot as plt
+import signal
 
 # Load environment variables from the .env file
 load_dotenv()
+
+def handle_sigterm(signum, frame):
+
+    print('Received SIGTERM. Closing camera and stopping the model...')
+    # Add code here to close the camera and stop the model gracefully
+    cv2.destroyAllWindows()  # Close the camera window
+    # ml_model.stop()  # Stop your ML model (replace with the actual function to stop your model)
+    exit(0)
 
 def face_confidence(face_distance, face_match_threshold=0.6):
     # Function for face recognition confidence calculation
@@ -220,19 +229,8 @@ class FaceRecognition:
 
                     if current_time - self.start_time >= 1 and name[0 : 7] != 'Unknown' and status != 'No Face Detected' and status != 'Inactive':
 
-                        # timestamp = time.strftime('%Y%m%d%H%M%S', time.localtime())
-                        # session_id = self.username + self.date + self.subject
                         session_collection = db[self.session_id]
 
-                        # # Get a list of all collection names in the 'EA' database
-                        # collections = db.list_collection_names()
-
-                        # # Check if 'sid' is in the list of collections
-                        # if session_id in collections:
-                        #     print("The 'session_id' collection exists in the 'EA' database.")
-                        # else:
-                        #     print("The 'session_id' collection does not exist in the 'EA' database.")
-                            
                         s_rollNo = name.split('_')[1]
                         existing_doc = session_collection.find_one({'s_rollNo': s_rollNo})
 
@@ -269,6 +267,10 @@ class FaceRecognition:
 
 # Entry point
 if __name__ == '__main__':
+
+    # Capture the signal to terminate the process
+    signal.signal(signal.SIGTERM, handle_sigterm)
+
     fr = FaceRecognition()
     fr.run_recognition()
 

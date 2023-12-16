@@ -17,7 +17,7 @@ export default function Header() {
                 className={(isActive) =>
                   `block w-28 py-2 pr-4 pl-3 duration-200 ${
                     isActive ? "gray" : "orange"
-                  }"text-white  hover:bg-indigo-400 focus:ring-4 focus:ring-orange-300 font-medium 
+                  }"text-white  hover:bg-indigo-500 focus:ring-4 focus:ring-orange-300 font-medium 
                   rounded-full text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none`
                 }
               >
@@ -29,7 +29,7 @@ export default function Header() {
                 className={(isActive) =>
                   `block py-2 pr-4 pl-3 duration-200 ${
                     isActive ? "gray" : "orange"
-                  }text-white  hover:bg-indigo-400	 focus:ring-4 focus:ring-orange-300 font-medium 
+                  }text-white  hover:bg-indigo-500	 focus:ring-4 focus:ring-orange-300 font-medium 
                   rounded-full text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none`
                 }
               >
