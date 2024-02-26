@@ -7,11 +7,10 @@ import bcrypt from 'bcrypt';
 
 const saltRounds = 10
 
-dotenv.config()
+dotenv.config({ path: './../../../.env' });
 
 const app = express()
 const port = 3000
-
 mongoose.connect(process.env.MONGODB_URI + 'EA')
 
 const TeacherSchema = new mongoose.Schema({

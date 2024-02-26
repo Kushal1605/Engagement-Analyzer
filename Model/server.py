@@ -36,8 +36,8 @@ def main():
 
     if not is_running:
         print('Starting the session')
-        curr_process = subprocess.run(['python', 'Emotion_Analyzer.py'])
         is_running = True
+        curr_process = subprocess.Popen(['python', 'Emotion_Analyzer.py'])
     else:
         print('Session is already started.')
     return jsonify({'message': 'Request processed successfully'})
@@ -46,8 +46,10 @@ def main():
 def stop():
 
     global curr_process, is_running
+    print('process running: ', is_running)
 
     if is_running:
+        print('Process Name: ', curr_process)
         print('Stopping the session')
         curr_process.terminate()
 

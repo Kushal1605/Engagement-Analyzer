@@ -49,7 +49,7 @@ class FaceRegister:
         self.input_name_button.grid(row=3, columnspan=2, padx=5, pady=5)
         self.frame_right_info.pack()
 
-        self.cap = cv2.VideoCapture(1)
+        self.cap = cv2.VideoCapture(0)
         self.process()
         self.win.mainloop()
 

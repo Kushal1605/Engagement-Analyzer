@@ -141,7 +141,7 @@ class FaceRecognition:
 
     def run_recognition(self):
         # Initialize video capture
-        video_capture = cv2.VideoCapture(1)  #to Use Mobile Camera cv2.VideoCapture(1)
+        video_capture = cv2.VideoCapture(0)  #to Use Mobile Camera cv2.VideoCapture(1)
 
         # Check if video source is available
         if not video_capture.isOpened():
