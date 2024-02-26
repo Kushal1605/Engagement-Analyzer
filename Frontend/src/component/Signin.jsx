@@ -25,6 +25,7 @@ export default function Signin(props) {
       if(response.data.ok) {
         props.showalert("Sign-In successfully.", "success");
         props.setUsername(username)
+        localStorage.setItem('username', username)
         navigate('/TeacherDashboard')
       } else {
         props.showalert("Invalid Credentials.", "danger");

@@ -54,7 +54,7 @@ const MyDatePicker = (props) => {
       </div>
 
       <div className="flex flex-col items-center justify-start w-1/2">
-        <span className="font-medium text-2xl">Dashboard</span>
+        <span className="font-medium text-2xl">Dashboard </span>
 
         <div className="border-2 border-orange-900 my-5 p-20 rounded-md flex flex-col items-center justify-center shadow">
           <h1 className="text-xl font-medium">Choose the date and lecture.</h1>

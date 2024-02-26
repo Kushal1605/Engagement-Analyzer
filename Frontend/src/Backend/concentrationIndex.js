@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function connectToMongoDB() {
-    const client = new MongoClient(process.env.MONGODB_URI);
+    const client = new MongoClient(process.env.MONGODB_URI + 'EA');
 
     try {
         await client.connect();
@@ -12,7 +12,7 @@ async function connectToMongoDB() {
 
         const database = client.db();
 
-        const studentDataCollection = database.collection('student_data');
+        const studentDataCollection = database.collection('k1232023-12-06T18:30:00.000ZCompiler');
 
         const studentData = await studentDataCollection.find({}).toArray();
 
