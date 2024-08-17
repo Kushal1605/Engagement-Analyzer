@@ -1,6 +1,5 @@
 import face_recognition
 import os
-import sys
 import cv2
 import numpy as np
 import math
@@ -12,18 +11,14 @@ import time
 from dotenv import load_dotenv
 import io
 from PIL import Image
-import matplotlib.pyplot as plt
 import signal
 
-# Load environment variables from the .env file
 load_dotenv()
 
 def handle_sigterm(signum, frame):
 
     print('Received SIGTERM. Closing camera and stopping the model...')
-    # Add code here to close the camera and stop the model gracefully
     cv2.destroyAllWindows()  # Close the camera window
-    # ml_model.stop()  # Stop your ML model (replace with the actual function to stop your model)
     exit(0)
 
 def face_confidence(face_distance, face_match_threshold=0.6):
@@ -61,20 +56,19 @@ def blinked(a, b, c, d, e, f):
 # Load emotion recognition model
 def load_emotion_model():
     # Function to load the emotion recognition model 
-    f_json = open("./emotiondetector.json", "r")
+    f_json = open("Model/emotiondetector.json", "r")
     m_json = f_json.read()
     f_json.close()
     model = model_from_json(m_json)
-    model.load_weights("./emotiondetector.h5")
+    model.load_weights("Model/emotiondetector.h5")
     return model
 
 # Connect to MongoDB database and get data
-
 mongodb_uri = os.getenv("MONGODB_URI")
 client = pymongo.MongoClient(mongodb_uri)
-#Create or use a database
-db = client["EA"]
+
 #Create or use a collection within the database
+db = client["EA"]
 collection = db["student_data"]
 studentCollection = db["student"]
 
@@ -112,7 +106,7 @@ class FaceRecognition:
         }
 
         # Retrive username of teacher
-        file = open('username.txt', 'r')
+        file = open('Model/username.txt', 'r')
         self.session_id = file.read()
 
 
@@ -197,7 +191,7 @@ class FaceRecognition:
 
                     # Determine eye state using landmarks
                     detector = dlib.get_frontal_face_detector()
-                    predictor = dlib.shape_predictor("./shape_predictor_68_face_landmarks.dat")
+                    predictor = dlib.shape_predictor("Model/shape_predictor_68_face_landmarks.dat")
                     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                     rects = detector(gray, 0)
 

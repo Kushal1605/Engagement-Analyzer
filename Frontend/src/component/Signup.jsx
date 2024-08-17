@@ -58,6 +58,7 @@ export default function Signup(props) {
         Sign Up for an Account
       </h2>
   <br /><br />
+  
       <form className="space-y-6" onSubmit={handleSignUp}>
         <div>
           <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 text-left">

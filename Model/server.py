@@ -1,47 +1,41 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS 
 import subprocess
-import psutil
-import time
 import pymongo
 import os
-from colorama import Fore
-from signal import signal, SIGTERM
+from signal import SIGTERM
 
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS Policy for all routes
-# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173/dashboard"}})    . If you want to enable CORS for specific routes
+# CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173/dashboard"}})    If you want to enable CORS for specific routes
 
 is_running = False
 curr_process = None
 
-# def is_test_py_running():
-#     for process in psutil.process_iter(['pid', 'name']):
-#         # print(process.info['name'])
-#         if process.info['name'] == 'python' and 'Emotion_Analyzer.py' in process.info['cmdline']:
-#             return True
-#     return False
-
+# Route to handle the request to start a new session.
 @app.route('/main', methods = ['POST'])
-
 def main():
-
-    global curr_process, is_running
     
     data = request.get_json()
-    print(data)
-    with open('username.txt', 'w') as file:
+    # print(data)
+    with open('Model/username.txt', 'w') as file:
         file.write(data['username'] + data['date'] + data['subject'])
 
+    global curr_process, is_running
+
+# Execute the model if not already running.
     if not is_running:
-        print('Starting the session')
+        print('Starting the session.')
         is_running = True
-        curr_process = subprocess.Popen(['python', 'Emotion_Analyzer.py'])
+        curr_process = subprocess.Popen(['python', 'Model/Emotion_Analyzer.py'])
+        print('Process info: ', curr_process)
     else:
         print('Session is already started.')
+
     return jsonify({'message': 'Request processed successfully'})
 
+# Route to handle the request to stop the session
 @app.route('/stop', methods = ['POST'])
 def stop():
 
@@ -60,7 +54,6 @@ def stop():
 
     return jsonify({'message': 'Request processed successfully'})
     
-
 
 @app.route('/end', methods = ['POST'])
 def end():

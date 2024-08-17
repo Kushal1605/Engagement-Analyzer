@@ -118,12 +118,12 @@ class FaceRegister:
 
     def play_confirmation_sound(self):
         pygame.mixer.init()
-        pygame.mixer.music.load("./assets/1702316998070c2xrobf-voicemaker.in-speech.mp3")
+        pygame.mixer.music.load("Model/assets/1702316998070c2xrobf-voicemaker.in-speech.mp3")
         pygame.mixer.music.play()
 
     def data_already_present(self):
         pygame.mixer.init()
-        pygame.mixer.music.load("./assets/1702317567475uw0wjnz-voicemaker.in-speech.mp3")
+        pygame.mixer.music.load("Model/assets/1702317567475uw0wjnz-voicemaker.in-speech.mp3")
         pygame.mixer.music.play()
 
 def main():
